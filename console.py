@@ -164,7 +164,7 @@ class HBNBCommand(cmd.Cmd):
             self.do_update(line)
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+HBNBCommand().cmdloop()
     # import sys
     # non-interactive mode
     # if len(sys.argv) > 1:
