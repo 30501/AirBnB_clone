@@ -8,6 +8,7 @@ from datetime import datetime
 import models
 
 
+
 class BaseModel:
     """ class for all other classes to inherit from """
     def __init__(self, *args, **kwargs):
@@ -48,7 +49,7 @@ class BaseModel:
 
     # Public instance methods
     def save(self):
-        """ updates the public instance attribute updated_at with
+ """ updates the public instance attribute updated_at with
         the current datetime """
         self.updated_at = datetime.now()
         models.storage.save()
