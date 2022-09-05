@@ -32,7 +32,7 @@ class test_user(unittest.TestCase):
 
     def test_subclass(self):
         self.assertIsNotNone(User.__doc__)
-
+        
     def save_test(self):
         self.my_user.save()
         self.assertNotEqual(self.my_user.created_at, self.my_user.updated_at)
