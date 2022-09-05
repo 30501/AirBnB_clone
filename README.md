@@ -13,7 +13,7 @@ Is a command interpreter and the main purpose is to manage, manipulate and acces
 ## Install
 
 ```
-git clone https://github.com/julianchok25/AirBnB_clone.git
+git clone https://github.com/30501/AirBnB_clone.git
 
 cd AirBnb_clone
 
@@ -137,4 +137,4 @@ PROMPT~>
 ```
 ## Authors:
 [bethelhem hunegnaw] (berryhunex@gmail.com)
-[abenezer tesfaye] 
+[abenezer tesfaye] (abenezer9999@gmail.com)
