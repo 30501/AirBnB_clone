@@ -1,8 +1,11 @@
 #!/usr/bin/python3
-""" State where user's come from """
-from . base_model import BaseModel
+"""
+This module contains the State Class
+"""
+from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """ Define the state of the user """
-    name = ''
+    """Class for the State model"""
+
+    name = ""

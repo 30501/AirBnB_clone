@@ -1,71 +1,58 @@
 #!/usr/bin/python3
-
-
-""" Base module """
+"""
+This module contains the BaseModel Class
+"""
 import uuid
+import copy
 from datetime import datetime
-# import the variable storage
 import models
 
 
+class BaseModel():
+    """Class representing the BaseModel Class"""
 
-class BaseModel:
-    """ class for all other classes to inherit from """
+    valid_attributes = {
+        "User": {
+            'first_name': str,
+            'last_name': str,
+            'email': str,
+            'password': str,
+        }
+    }
+
     def __init__(self, *args, **kwargs):
-        """ Constructor and re-create an instance with
-        this dictionary representation"""
-        if len(kwargs) > 0:
-            # each key of this dictionary is an attribute name
-            # each value of this dictionary is the value of this attribute name
+        ''' create uuid when instance is initialized and convert to string'''
+        if len(kwargs) != 0:
             for key, value in kwargs.items():
-                if key == "updated_at":
-                    # Convert string date to datetime object
-                    # strptime (string parse time): Parse a string into a -
-                    # datetime object given a corresponding format
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                elif key == "created_at":
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                elif key == "__class__":
-                    # This happens because __class__ is not mandatory in output
+                if key == 'created_at' or key == 'updated_at':
+                    setattr(self,
+                            key,
+                            datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
+                elif key == '__class__':
                     continue
-
-                setattr(self, key, value)
+                else:
+                    setattr(self, key, value)
         else:
-            # Generate a random UUID
             self.id = str(uuid.uuid4())
-            # assign with the current datetime when an instance is created
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            # if it’s a new instance add a call to the method new(self) on stge
             models.storage.new(self)
 
     def __str__(self):
-        """ overriding the __str__ method that returns a custom
-        string object """
-        # Old-style: self.__class__.__name__
-        class_name = type(self).__name__
-        mssg = "[{0}] ({1}) {2}".format(class_name, self.id, self.__dict__)
-        return (mssg)
+        """Method that returns a string representation of an instance"""
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                      self.id,
+                                      self.__dict__))
 
-    # Public instance methods
     def save(self):
- """ updates the public instance attribute updated_at with
-        the current datetime """
+        """Method that saves an instance"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """returns a dictionary containing all keys/values
-        of __dict__ of the instance."""
-        # Define a dictionary and key __class__ that add to this dictionary
-        # with the class name of the object
-        tdic = {}
-        tdic["__class__"] = type(self).__name__
-        # loop over dict items and validate created_at and updated_at to
-        # convert in ISO format
-        for n, i in self.__dict__.items():
-            if isinstance(i, datetime):
-                tdic[n] = i.isoformat()
-            else:
-                tdic[n] = i
-        return (tdic)
+        """Method that returns a dictionary of an instance"""
+        dict_ = copy.deepcopy(self.__dict__)
+        dict_['updated_at'] = dict_['updated_at'].isoformat()
+        dict_['created_at'] = dict_['created_at'].isoformat()
+        dict_['__class__'] = self.__class__.__name__
+        return dict_

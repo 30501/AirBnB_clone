@@ -1,9 +1,12 @@
-#!/user/bin/python3
-""" City where user's come from """
-from . base_model import BaseModel
+#!/usr/bin/python3
+"""
+This module contains the City Class
+"""
+from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """ city of the user """
-    state_id = ''
-    name = ''
+    """Class for the City model"""
+
+    state_id = ""
+    name = ""

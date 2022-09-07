@@ -1,10 +1,13 @@
 #!/usr/bin/python3
-""" review of user's when left the place """
-from . base_model import BaseModel
+"""
+This module contains the Review Class
+"""
+from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """ review of the user (qualification)"""
-    place_id = ''
-    user_id = ''
-    text = ''
+    """Class for the Review model"""
+
+    place_id = ""
+    user_id = ""
+    text = ""
